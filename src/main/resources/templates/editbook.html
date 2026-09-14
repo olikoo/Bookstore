@@ -6,18 +6,35 @@
 	</head>
 	<body>
         <h1>Edit book</h1>
-        <!-- <div>
-			<form th:object="${book}" th:action="@{save}" action="#" method="post">
-				<label for="author">Author</label>
-				<input type="text" id="author" th:field="*{author}" />
-				<label for="title">Title</label>
-				<input type="text" id="title" th:field="*{title}" />
-				<label for="isbn">ISBN</label>
-				<input type="text" id="isbn" th:field="*{isbn}" />
-				<label for="pubye">Publication year</label>
-				<input type="text" id="pubye" th:field="*{publicationYear}" />
+        <div>
+			<form th:object="${editBook}" th:action="@{../save}" action="#" method="post">
+				<input type="hidden" th:field="*{id}" />
+				<div>
+					<label for="author">Author</label>
+					<input type="text" id="author" th:field="*{author}" />
+				</div>
+				<div>
+					<label for="title">Title</label>
+					<input type="text" id="title" th:field="*{title}" />
+					<!-- <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</span> -->
+				</div>
+				<div>
+					<label for="isbn">ISBN</label>
+					<input type="text" id="isbn" th:field="*{isbn}" />
+				</div>
+				<div>
+					<label for="pubye">Publication year</label>
+					<input type="text" id="pubye" th:field="*{publicationYear}" />
+					<span th:if="${#fields.hasErrors('publicationYear')}" th:errors="*{publicationYear}">Error</span>
+				</div>
+				<div>
+					<label for="catlist">Category</label>
+					<select id="catlist" th:field="*{category}" class="form-control">
+						<option th:each="category: ${categories}" th:value="${category.catId}" th:text="${category.name}"></option>
+					</select>
+				</div>
 				<input type="submit" value="Save"></input>
 			</form>
-        </div> -->
+        </div>
 	</body>
 </html>
