@@ -1,6 +1,9 @@
 
 package bookstore.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +31,9 @@ public class Book {
     @Max (2026)
     private int publicationYear;
 
+    
+    //@JsonIgnore //ignore onetomany links - endless loop
+    @JsonIgnoreProperties ("books") //ignore books property of category
     @ManyToOne 
     @JoinColumn (name="catId")
     private Category category;
