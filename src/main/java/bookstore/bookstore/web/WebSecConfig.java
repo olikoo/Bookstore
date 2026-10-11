@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,6 +21,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity(securedEnabled = true) //metoditason määrittely BookControllerissa
 
 public class WebSecConfig {
+
+    /* private final PasswordEncoder passwordEncoder;   //in-memory version
+
+    WebSecConfig(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    } */
+
+    @Bean 
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean 
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -38,7 +49,9 @@ public class WebSecConfig {
         return http.build();
     }
 
-    @Bean 
+
+    //in-memory security commented out for database user entity
+    /* @Bean 
     public UserDetailsService userDetailsService(){
         System.out.println("in-memory users");
         List<UserDetails> users = new ArrayList<>();
@@ -52,6 +65,6 @@ public class WebSecConfig {
         users.add(user2);
 
         return new InMemoryUserDetailsManager(users);
-    }
+    } */
 
 }
