@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,13 +40,17 @@ public class WebSecConfig {
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/", "/css/**").permitAll() //paths not required for auth
                 //.requestMatchers("/admin/**").hasRole("ADMIN") //all paths after /admin/ require role ADMIN
+                .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
             ).formLogin(formlogin -> formlogin
                 //.loginPage("/login")  //custom login page, if not set spring uses own
                 .defaultSuccessUrl("/booklist", true).permitAll()
             ).logout(logout -> logout
                 .permitAll()
-            );
+            ).headers(headers -> headers //h2-console wouldnt work without this
+                .frameOptions(frame -> frame.sameOrigin())
+            ).httpBasic(Customizer.withDefaults() //for REST client testing
+            ).csrf(csrf -> csrf.disable()); //NOT FOR PRODUCTION just for DEV
         return http.build();
     }
 

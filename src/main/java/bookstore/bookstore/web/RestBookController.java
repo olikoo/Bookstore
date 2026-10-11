@@ -7,6 +7,7 @@ import bookstore.bookstore.domain.BookRepository;
 
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,11 +36,13 @@ public class RestBookController {
         return bookRepository.findById(bookId);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/books")
     public Book saveBook(@RequestBody Book book) {
         return bookRepository.save(book);
     }
     
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("books/{id}")
     public Book saveEditedBook(@RequestBody Book editedBook, @PathVariable Long id) {
         editedBook.setId(id);
