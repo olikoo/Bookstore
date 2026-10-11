@@ -1,7 +1,10 @@
 package bookstore.bookstore.domain;
 
+
 import org.springframework.data.repository.CrudRepository;
 
 public interface CategoryRepository extends CrudRepository<Category, Long> {
     
+    /* List<Category> findByCategoryName (String name); */
+
 }
