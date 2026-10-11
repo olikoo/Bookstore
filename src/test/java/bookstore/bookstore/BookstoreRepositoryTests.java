@@ -14,6 +14,8 @@ import bookstore.bookstore.domain.Category;
 import bookstore.bookstore.domain.CategoryRepository;
 import bookstore.bookstore.domain.User;
 import bookstore.bookstore.domain.UserRepository;
+import jakarta.activation.DataSource;
+
 
 @DataJpaTest 
 public class BookstoreRepositoryTests {
@@ -27,6 +29,9 @@ public class BookstoreRepositoryTests {
     @Autowired 
     private UserRepository urepository;
 
+    //check which db is used
+    @Autowired 
+    DataSource dataSource;
 
     @Test 
     public void defaultUserFound(){
@@ -41,5 +46,6 @@ public class BookstoreRepositoryTests {
 
         assertThat(repository.findById(book.getId()).get().getAuthor().equals("yyy"));
     }
+
 
 }

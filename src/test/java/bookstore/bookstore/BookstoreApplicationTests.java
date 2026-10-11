@@ -24,6 +24,16 @@ class BookstoreApplicationTests {
 		this.rbcontroller =  rbcontroller;
 	}
 
+	@Test 
+	public void BookControllerLoading() throws Exception {
+		assertThat(controller).isNotNull();
+	}
+
+	@Test 
+	public void rbControllerLoading() throws Exception {
+		assertThat(rbcontroller).isNotNull();
+	}
+
 	@Test
 	void contextLoads() {
 	}
